@@ -314,47 +314,38 @@ int hashing(int *a, int **ht)
 {
 	int *hashtable = NULL;
 
-	/* hash table이 NULL인 경우 메모리 할당 */
+	//해시 테이블이 null인 경우 메모리 할당
 	if(*ht == NULL) {
 		hashtable = (int*)malloc(sizeof(int) * MAX_ARRAY_SIZE);
-		*ht = hashtable;  /* 할당된 메모리의 주소를 복사 --> main에서 배열을 control 할수 있도록 함*/
+		*ht = hashtable;  //할당된 메모리의 주소를 복사 --> 메인에서 배열을 제어 할수 있도록 함
 	} else {
-		hashtable = *ht;	/* hash table이 NULL이 아닌경우, table 재활용, reset to -1 */
+		hashtable = *ht;  //해시테이블이 null이 아닌경우, 테이블을 재활용, -1로 재설정
 	}
 
 	for(int i = 0; i < MAX_HASH_TABLE_SIZE; i++)
 		hashtable[i] = -1;
 
-	/*
-	for(int i = 0; i < MAX_HASH_TABLE_SIZE; i++)
-		printf("hashtable[%d] = %d\n", i, hashtable[i]);
-	*/
 
 	int key = -1;
 	int hashcode = -1;
 	int index = -1;
-	for (int i = 0; i < MAX_ARRAY_SIZE; i++)
+	for (int i = 0; i < MAX_ARRAY_SIZE; i++)  //0번 원소부터 시작하여 마지막 원소까지 반복 수행
 	{
 		key = a[i];
 		hashcode = hashCode(key);
-		/*
-		printf("key = %d, hashcode = %d, hashtable[%d]=%d\n", key, hashcode, hashcode, hashtable[hashcode]);
-		*/
-		if (hashtable[hashcode] == -1)
+		
+		if (hashtable[hashcode] == -1)   //hashtable[hashcode]의 위치가 -1인 경우
 		{
-			hashtable[hashcode] = key;
-		} else 	{
+			hashtable[hashcode] = key;  //key값을 hashtable[hashcode]의 위치에 저장
+		} else 	{  //hashtable[hashcode]의 위치가 -1이 아닌 경우
 
-			index = hashcode;
+			index = hashcode;  //hashcode의 값을 index에 저장
 
-			while(hashtable[index] != -1)
+			while(hashtable[index] != -1)  //hashtable[index]의 위치가 -1이 아닌 경우
 			{
-				index = (++index) % MAX_HASH_TABLE_SIZE;
-				/*
-				printf("index = %d\n", index);
-				*/
+				index = (++index) % MAX_HASH_TABLE_SIZE;  //(++index) % MAX_HASH_TABLE_SIZE값을 인덱스에 저장
 			}
-			hashtable[index] = key;
+			hashtable[index] = key;  //key값을 hashtable[index]의 위치에 저장
 		}
 	}
 
@@ -363,12 +354,12 @@ int hashing(int *a, int **ht)
 
 int search(int *ht, int key)
 {
-	int index = hashCode(key);
+	int index = hashCode(key);  //해시코드의 key값을 인덱스에 저장
 
-	if(ht[index] == key)
+	if(ht[index] == key)  //해시 테이블에 key값이 있는 경우
 		return index;
-
-	while(ht[++index] != key)
+    //해시 테이블에 key값이 없는 경우
+	while(ht[++index] != key)  
 	{
 		index = index % MAX_HASH_TABLE_SIZE;
 	}
