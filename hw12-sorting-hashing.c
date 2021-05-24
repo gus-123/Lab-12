@@ -162,13 +162,13 @@ int selectionSort(int *a)
 	printf("Selection Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a);  //정렬 전의 원소 출력
 
 	for (i = 0; i < MAX_ARRAY_SIZE; i++)
 	{
-		minindex = i;
-		min = a[i];
-		for(j = i+1; j < MAX_ARRAY_SIZE; j++)
+		minindex = i;  //기준 위치 원소의 인덱스 i를 변수 minindex에 설정
+		min = a[i];  //배열 a에 i번 원소의 인덱스 값을 min에 저장
+		for(j = i+1; j < MAX_ARRAY_SIZE; j++)  //i+1번 원소부터 마지막 원소까지 비교하면서 가장 작은 원소가 있는 위치의 값을 변수 min에 저장하고 mindex에 j값을 넣어줌
 		{
 			if (min > a[j])
 			{
@@ -176,12 +176,12 @@ int selectionSort(int *a)
 				minindex = j;
 			}
 		}
-		a[minindex] = a[i];
+		a[minindex] = a[i];  //기존 위치와 가장 작은 원소가 있는 위치를 교환후 a[i]에 min값을 저장
 		a[i] = min;
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a);   //정렬 후의 원소 출력
 	return 0;
 }
 
@@ -192,22 +192,22 @@ int insertionSort(int *a)
 	printf("Insertion Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a);  //정렬 전의 원소 출력
 
-	for(i = 1; i < MAX_ARRAY_SIZE; i++)
+	for(i = 1; i < MAX_ARRAY_SIZE; i++)   //1번 원소부터 시작하여 삽입 정렬을 마지막 원소까지 반복 수행
 	{
 		t = a[i];
 		j = i;
-		while (a[j-1] > t && j > 0)
+		while (a[j-1] > t && j > 0)   //삽입 할 자리를 만들기 위하여
 		{
-			a[j] = a[j-1];
+			a[j] = a[j-1];  //삽입 할 자리 이후의 원소를 뒤로 이동
 			j--;
 		}
-		a[j] = t;
+		a[j] = t;  //삽입 할 자리에 원소 저장 
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a);  //정렬 후의 원소 출력
 
 	return 0;
 }
@@ -219,13 +219,13 @@ int bubbleSort(int *a)
 	printf("Bubble Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a);  //정렬 전의 원소 출력
 
-	for(i = 0; i < MAX_ARRAY_SIZE; i++)
+	for(i = 0; i < MAX_ARRAY_SIZE; i++)  //0번 원소부터 시작하여 버블 정렬을 마지막 원소까지 반복 수행
 	{
-		for (j = 0; j < MAX_ARRAY_SIZE; j++)
+		for (j = 0; j < MAX_ARRAY_SIZE; j++)  //0번 원소부터 시작하여 버블 정렬을 마지막 원소까지 반복 수행
 		{
-			if (a[j-1] > a[j])
+			if (a[j-1] > a[j])  //인접한 원소를 두 개 비교하여 자리를 교환 
 			{
 				t = a[j-1];
 				a[j-1] = a[j];
@@ -235,7 +235,7 @@ int bubbleSort(int *a)
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a);  //정렬 후의 원소 출력
 
 	return 0;
 }
@@ -247,13 +247,13 @@ int shellSort(int *a)
 	printf("Shell Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a);  //정렬 전의 원소 출력
 
-	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)
+	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)   //전체 범위의 1/2로 설정하고 h가 1보다 작아지면 반복 수행 종료
 	{
-		for (i = 0; i < h; i++)
+		for (i = 0; i < h; i++)  //0번 원소부터 시작하여 간격 h가 i보다 작아질 때 까지 반복수행
 		{
-			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)
+			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)   //간격 i+h만큼 떨어져 있는 원소들로 구성한 하나의 부분집합에 대해 마지막 원소까지 셸정렬을 수행
 			{
 				v = a[j];
 				k = j;
@@ -267,7 +267,7 @@ int shellSort(int *a)
 		}
 	}
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a);  //정렬 후의 원소 출력
 
 	return 0;
 }
@@ -285,18 +285,19 @@ int quickSort(int *a, int n)
 
 		while(1)
 		{
-			while(a[++i] < v);
-			while(a[--j] > v);
+			while(a[++i] < v);  //v 원소보다 큰 원소를 찾을때 까지 i를 오른쪽으로 이동
+			while(a[--j] > v);  //v 원소보다 작은 원소를 찾을때 까지 j를 왼쪽으로 이동
 
-			if (i >= j) break;
+			if (i >= j) break;  //i가 j보다 크거나 같을 경우 더 이상 진행할 수 없으므로 i와 j 원소의 자리를 교환
 			t = a[i];
 			a[i] = a[j];
 			a[j] = t;
 		}
+        //i번째와 n-1번째 원소의 자리를 교환
 		t = a[i];
 		a[i] = a[n-1];
 		a[n-1] = t;
-
+        //분할 계산(퀵 정렬을 재귀 호출)
 		quickSort(a, i);
 		quickSort(a+i+1, n-i-1);
 	}
